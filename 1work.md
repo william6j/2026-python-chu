@@ -104,3 +104,41 @@ elif bmi < 27:
     print("Overweight")
 else:
     print("Obese")
+
+# 4-1
+answer = 50
+guess = int(input())
+while guess != answer:
+    if guess > answer:
+        print("Too big")
+    else:
+        print("Too small")
+    guess = int(input())
+print("Correct")
+
+# 4-2
+for i in range(1, 10):
+    for j in range(1, 10):
+        print(i, "*", j, "=", i*j)
+        
+# 4-3
+n = int(input())
+is_prime = True
+for i in range(2, n):
+    if n % i == 0:
+        is_prime = False
+if is_prime and n > 1:
+    print("Prime")
+else:
+    print("Not Prime")
+    
+# 4-4
+n = int(input())
+for i in range(1, n+1):
+    for j in range(n-i):
+        print(" ", end="")
+    for k in range(2*i-1):
+        print("*", end="")
+    print()
+
+
