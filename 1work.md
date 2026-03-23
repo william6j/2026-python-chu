@@ -148,19 +148,45 @@ scores = []
 for i in range(5):
     score = int(input(f"請輸入第{i+1}個成績: "))
     scores.append(score)
-
 average = sum(scores) / len(scores)
 highest = max(scores)
 lowest = min(scores)
-
 print("平均:", average)
 print("最高:", highest)
 print("最低:", lowest)
+
 # 5-2
+scores = [75, 40, 90, 55, 80]
+passed = []
+for s in scores:
+    if s >= 60:
+        passed.append(s)
+print("及格成績:", passed)
 
 # 5-3
+a = [1, 2, 3]
+b = [4, 5, 6]
+result = []
+for i in range(len(a)):
+    result.append(a[i] + b[i])
+print(result)
 
 # 5-4
+nums = [1, 2, 3, 2, 4, 1, 5]
+duplicates = []
+for n in nums:
+    if nums.count(n) > 1 and n not in duplicates:
+        duplicates.append(n)
+print("重複元素:", duplicates)
 
 # 5-5
-
+text = input("輸入文字: ")
+shift = int(input("位移: "))
+result = ""
+for char in text:
+    if char.isalpha():
+        base = ord('A') if char.isupper() else ord('a')
+        result += chr((ord(char) - base + shift) % 26 + base)
+    else:
+        result += char
+print("加密後:", result)
