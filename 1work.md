@@ -190,3 +190,56 @@ for char in text:
     else:
         result += char
 print("加密後:", result)
+
+# 6-1
+text = input("輸入一句話: ")
+words = text.split()
+count = {}
+for w in words:
+    if w in count:
+        count[w] += 1
+    else:
+        count[w] = 1
+print(count)
+
+# 6-2
+text = input("輸入文章: ")
+count = {}
+for ch in text:
+    if ch in count:
+        count[ch] += 1
+    else:
+        count[ch] = 1
+print(count)
+
+# 6-3
+morse_dict = {
+    'A': '.-', 'B': '-...', 'C': '-.-.',
+    'D': '-..', 'E': '.', 'F': '..-.',
+    'G': '--.', 'H': '....'
+}
+text = input("輸入英文: ").upper()
+result = []
+for ch in text:
+    if ch in morse_dict:
+        result.append(morse_dict[ch])
+    else:
+        result.append('?')
+print(" ".join(result))
+
+# 6-4
+import random
+nums = set()
+while len(nums) < 6:
+    nums.add(random.randint(1, 49))
+print("你的號碼:", nums)
+# 6-5
+cart = {
+    "apple": 30,
+    "banana": 20,
+    "milk": 50
+}
+total = 0
+for price in cart.values():
+    total += price
+print("總金額:", total)
