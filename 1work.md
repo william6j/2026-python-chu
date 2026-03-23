@@ -141,5 +141,26 @@ for i in range(1, n+1):
     for k in range(2*i-1):
         print("*", end="")
     print()
+    
+# 5-1
+scores = []
 
+for i in range(5):
+    score = int(input(f"請輸入第{i+1}個成績: "))
+    scores.append(score)
+
+average = sum(scores) / len(scores)
+highest = max(scores)
+lowest = min(scores)
+
+print("平均:", average)
+print("最高:", highest)
+print("最低:", lowest)
+# 5-2
+
+# 5-3
+
+# 5-4
+
+# 5-5
 
