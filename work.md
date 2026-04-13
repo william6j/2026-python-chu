@@ -243,3 +243,102 @@ total = 0
 for price in cart.values():
     total += price
 print("總金額:", total)
+
+# 7-1
+def universal_calculator(a, b, operation='add', history=None):
+    if history is None:
+        history = []    
+    if operation == 'add':
+        result = a + b
+    elif operation == 'sub':
+        result = a - b
+    else:
+        result = "Unsupported Operation" 
+    history.append(result)
+    return result, history
+
+# 7-2
+import math
+def is_prime(n):
+    if n <= 1:
+        return False
+    if n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+    for i in range(3, int(math.sqrt(n)) + 1, 2):
+        if n % i == 0:
+            return False
+    return True
+
+# 7-3
+def c_to_f(celsius):
+    return (celsius * 9/5) + 32
+def f_to_c(fahrenheit):
+    return (fahrenheit - 32) * 5/9
+if __name__ == "__main__":
+    test_c = 100
+    print(f"{test_c}°C 等於 {c_to_f(test_c)}°F")
+
+
+# 8-1
+students = []
+def add_score(name, score):
+    students.append({"name": name, "score": score})
+def show_summary():
+    if not students: return
+    avg = sum(s['score'] for s in students) / len(students)
+    fail_list = [s['name'] for s in students if s['score'] < 60]
+    print(f"平均分數: {avg:.2f}")
+    print(f"不及格名單: {', '.join(fail_list) if fail_list else '無'}")
+
+# 8-2
+state = "森林入口"
+while True:
+    print(f"\n你現在在：{state}")
+    action = input("你要去哪裡？(左/右/離開): ")
+    if action == "離開":
+        print("遊戲結束"); break
+    elif state == "森林入口":
+        state = "神祕洞窟" if action == "左" else "平靜湖畔"
+    else:
+        print("走到底了，回頭吧！")
+        state = "森林入口"
+# 8-3
+def check_password(pwd):
+    has_upper = any(c.isupper() for c in pwd)
+    has_lower = any(c.islower() for c in pwd)
+    has_digit = any(c.isdigit() for c in pwd)
+    length_ok = len(pwd) >= 8
+    score = sum([has_upper, has_lower, has_digit, length_ok])
+    levels = {4: "強", 3: "中", 2: "弱", 1: "極弱", 0: "極弱"}
+    return levels[score]
+print(f"強度：{check_password('Python123')}")
+
+# 8-4
+low, high = 1, 100
+print("請在心中想一個 1-100 的數字...")
+
+while low <= high:
+    mid = (low + high) // 2
+    ans = input(f"電腦猜 {mid}，請問是 太大(L)、太小(S)、還是正確(C)？ ").upper()
+    if ans == 'C':
+        print("AI 勝利！"); break
+    elif ans == 'L':
+        high = mid - 1
+    elif ans == 'S':
+        low = mid + 1
+        
+# 8-5
+low, high = 1, 100
+print("請在心中想一個 1-100 的數字...")
+
+while low <= high:
+    mid = (low + high) // 2
+    ans = input(f"電腦猜 {mid}，請問是 太大(L)、太小(S)、還是正確(C)？ ").upper()
+    if ans == 'C':
+        print("AI 勝利！"); break
+    elif ans == 'L':
+        high = mid - 1
+    elif ans == 'S':
+        low = mid + 1
