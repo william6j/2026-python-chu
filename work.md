@@ -342,3 +342,174 @@ while low <= high:
         high = mid - 1
     elif ans == 'S':
         low = mid + 1
+# 19
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+df = pd.read_csv("titanic.csv")
+
+# 19-1
+import pandas as pd
+import matplotlib.pyplot as plt
+df = pd.read_csv("titanic.csv")
+table = pd.crosstab(
+    df["Pclass"],
+    df["Embarked"]
+)
+table.plot(
+    kind="bar",
+    stacked=True,
+    figsize=(8,5)
+)
+plt.title("Pclass vs Embarked")
+plt.xlabel("Pclass")
+plt.ylabel("Count")
+plt.legend(title="Embarked")
+plt.show()
+
+
+# 19-2
+import pandas as pd
+df = pd.read_csv("titanic.csv")
+children = df[df["Age"] < 10]
+survival_rate = children["Survived"].mean()
+print("兒童人數：", len(children))
+print("存活率：", round(survival_rate * 100, 2), "%")
+
+# 19-3
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+df = pd.read_csv("titanic.csv")
+high_fare = df[df["Fare"] > 100]
+sns.countplot(
+    data=high_fare,
+    x="Sex"
+)
+plt.title("Gender Distribution (Fare > 100)")
+plt.xlabel("Sex")
+plt.ylabel("Count")
+plt.show()
+
+# 19-4
+import pandas as pd
+df = pd.read_csv("titanic.csv")
+df["Title"] = df["Name"].str.extract(' ([A-Za-z]+)\.')
+title_age = (
+    df.groupby("Title")["Age"]
+    .mean()
+    .sort_values(ascending=False)
+)
+print(title_age)
+print("\n平均年齡最大的稱謂：")
+print(title_age.idxmax())
+print("平均年齡：", round(title_age.max(), 2))
+
+# 19-5
+import pandas as pd
+
+df = pd.read_csv("titanic.csv")
+
+df["FamilySize"] = (
+    df["SibSp"]
+    + df["Parch"]
+    + 1
+)
+survival = (
+    df.groupby("FamilySize")["Survived"]
+    .mean()
+)
+print(survival)
+
+# 20-1
+import yfinance as yf
+import matplotlib.pyplot as plt
+
+MY_STOCK = "AAPL"
+
+data = yf.download(
+    ["NVDA", MY_STOCK],
+    start="2020-01-01",
+    auto_adjust=True
+)["Close"]
+relative_strength = data["NVDA"] / data[MY_STOCK]
+plt.figure(figsize=(12,6))
+plt.plot(relative_strength)
+plt.title(f"Relative Strength: NVDA / {MY_STOCK}")
+plt.xlabel("Date")
+plt.ylabel("NVDA Price / Stock Price")
+plt.grid(True)
+plt.show()
+if relative_strength.iloc[-1] > relative_strength.iloc[0]:
+    print("NVDA表現優於自選股")
+else:
+    print("自選股表現優於NVDA")
+    
+# 20-2
+import yfinance as yf
+MY_STOCK = "AAPL"   # 改成你的自選股
+data = yf.download(
+    ["TSM", MY_STOCK],
+    start="2020-01-01",
+    auto_adjust=True
+)["Close"]
+returns = data.pct_change()
+tsm_min_date = returns["TSM"].idxmin()
+tsm_min_return = returns["TSM"].min()
+my_min_date = returns[MY_STOCK].idxmin()
+my_min_return = returns[MY_STOCK].min()
+print("TSM最慘單日跌幅")
+print("日期:", tsm_min_date.date())
+print("跌幅:", f"{tsm_min_return:.2%}")
+print("\n自選股最慘單日跌幅")
+print("日期:", my_min_date.date())
+print("跌幅:", f"{my_min_return:.2%}")
+
+# 20-3
+import yfinance as yf
+import matplotlib.pyplot as plt
+MY_STOCK = "AAPL"   # 改成你的自選股
+data = yf.download(
+    ["TSM", MY_STOCK],
+    start="2020-01-01",
+    auto_adjust=True
+)["Close"]
+returns = data.pct_change()
+rolling_corr = (
+    returns["TSM"]
+    .rolling(window=60)
+    .corr(returns[MY_STOCK])
+)
+plt.figure(figsize=(12,6))
+plt.plot(rolling_corr)
+plt.title(f"60-Day Rolling Correlation: TSM vs {MY_STOCK}")
+plt.xlabel("Date")
+plt.ylabel("Correlation")
+plt.axhline(y=0, linestyle="--")
+plt.grid(True)
+plt.show()
+# 20-4
+import yfinance as yf
+import pandas as pd
+
+MY_STOCK = "AAPL"   # 改成你的自選股
+
+data = yf.download(
+    ["TSM", MY_STOCK],
+    start="2020-01-01",
+    auto_adjust=True
+)["Close"]
+
+monthly_prices = data.resample("ME").last()
+
+for stock in ["TSM", MY_STOCK]:
+    shares = len(monthly_prices)
+    total_cost = monthly_prices[stock].sum()
+    current_price = data[stock].iloc[-1]
+    current_value = shares * current_price
+    roi = current_value / total_cost
+    print(f"\n===== {stock} =====")
+    print(f"累積股數：{shares}")
+    print(f"累積成本：{total_cost:,.2f}")
+    print(f"目前市值：{current_value:,.2f}")
+    print(f"損益比率：{roi:.2f}")
